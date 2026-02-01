@@ -9,6 +9,7 @@ export interface PostMeta {
   title: string
   date: string
   description?: string
+  draft?: boolean
 }
 
 export interface Post extends PostMeta {
@@ -34,8 +35,10 @@ export function getAllPosts(): PostMeta[] {
         title: data.title || slug,
         date: data.date || '',
         description: data.description,
+        draft: data.draft || false,
       }
     })
+    .filter((post) => !post.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 
   return posts
@@ -50,6 +53,11 @@ export function getPostBySlug(slug: string): Post | null {
 
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
+
+  // Don't return drafts
+  if (data.draft) {
+    return null
+  }
 
   return {
     slug,
@@ -67,5 +75,11 @@ export function getAllSlugs(): string[] {
 
   return fs.readdirSync(postsDirectory)
     .filter((fileName) => fileName.endsWith('.mdx'))
+    .filter((fileName) => {
+      const fullPath = path.join(postsDirectory, fileName)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const { data } = matter(fileContents)
+      return !data.draft
+    })
     .map((fileName) => fileName.replace(/\.mdx$/, ''))
 }
