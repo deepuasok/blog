@@ -1,0 +1,53 @@
+---
+title: "The Iron Triangle: Every PM's First Lesson"
+date: "2026-02-01"
+description: "On the impossibility of having it all, and why that's actually liberating."
+---
+
+Every product manager learns this lesson eventually, usually the hard way.
+
+> "You can have it good, fast, or cheap. Pick two."
+
+This isn't cynicism. It's physics. Resources are finite. Time is finite. And quality is the emergent property of how you allocate both.
+
+## The Tradeoffs
+
+Play with this. Move the sliders. Watch what happens.
+
+<TriangleSlider />
+
+The math is unforgiving. When you push one lever up, something else has to give. The only question is whether you're making that tradeoff consciously or letting it happen to you.
+
+## Why This Matters
+
+Early in my career, I thought good PMs found ways around this constraint. They didn't. They just got better at:
+
+1. **Making the tradeoff explicit** — Everyone knows what we're sacrificing
+2. **Choosing the right sacrifice** — Based on what actually matters right now
+3. **Communicating it clearly** — No surprises when quality dips or timelines slip
+
+Here's a simple way to think about it in code:
+
+```python
+def ship_product(speed: int, quality: int, cost: int) -> str:
+    budget = 150  # You only get 150 points total
+
+    if speed + quality + cost > budget:
+        return "Something's gotta give."
+
+    return "Ship it."
+```
+
+## The Liberating Part
+
+Once you accept you can't have everything, you stop agonizing over impossible choices. You start asking better questions:
+
+- What's the *actual* constraint right now?
+- Which tradeoff will hurt least?
+- What would we do if we had to ship in half the time?
+
+The iron triangle isn't a prison. It's a forcing function for clarity.
+
+---
+
+*More on product tradeoffs in future posts.*
